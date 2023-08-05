@@ -12,11 +12,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class XMLTestResultsToExcel{
     public static void main(String[] args) {
-        String xmlFilePath = "E:/Siddiq/testng-results.xml";
-        String excelFilePath = "E:/Siddiq/file.xlsx";
+        String xmlFilePath = "E:/Siddiq/testng-results.xml";  //Give you input path
+
+        String excelFileName = getExcelFileNameWithTimestamp();
+        String excelFilePath = System.getProperty("user.home") + "/Downloads/" + excelFileName;
 
         List<TestResult> testResults = parseXMLTestResults(xmlFilePath);
         writeToExcel(excelFilePath, testResults);
@@ -54,9 +58,7 @@ public class XMLTestResultsToExcel{
     }
 
     private static String extractTestCaseId(String lineContent) {
-        // You need to implement your logic to extract the Test Case Id from the line content.
-        // This could involve using regular expressions or string manipulation, based on the format of the Test Case Id in your XML file.
-        // For demonstration purposes, let's assume the Test Case Id is enclosed in square brackets.
+        //As the Test Case Id is enclosed in square brackets.
         int startIdx = lineContent.indexOf('[');
         int endIdx = lineContent.indexOf(']', startIdx);
         if (startIdx != -1 && endIdx != -1) {
@@ -67,8 +69,6 @@ public class XMLTestResultsToExcel{
     }
 
     private static TestStatus extractTestStatus(String lineContent) {
-        // You need to implement your logic to extract the Test Status from the line content.
-        // For demonstration purposes, let's assume that "PASSED," "FAILED," and "SKIPPED" are indicators of the test status.
         if (lineContent.contains("PASSED")) {
             return TestStatus.PASSED;
         } else if (lineContent.contains("FAILED")) {
@@ -105,6 +105,13 @@ public class XMLTestResultsToExcel{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private static String getExcelFileNameWithTimestamp() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
+        String timestamp = dateFormat.format(date);
+        return "XMLToExcelfile_" + timestamp + ".xlsx";
     }
 }
 
