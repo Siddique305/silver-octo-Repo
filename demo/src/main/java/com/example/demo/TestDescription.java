@@ -12,8 +12,6 @@ public class TestDescription {
 	public static Map<String, String> getTestDescriptions() {
         // Define test descriptions based on Test Case Id
         Map<String, String> testDescriptions = new HashMap<>();
-        testDescriptions.put("TSQA_12062", "Hello everyone");
-        testDescriptions.put("TSQA_12063", "Bye Everyone");
         testDescriptions.put("TSQA_10016","Ensure that set recordings must be displayed under Recent recordings swimlane");
         testDescriptions.put("TSQA_10017","Ensure that user is able to play the Recent Recording with a single click");
         testDescriptions.put("TSQA_10028","Ensure that user is able to see the availability status of recordings");
